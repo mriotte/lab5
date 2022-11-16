@@ -1,12 +1,11 @@
 package lab1;
 
 import java.util.Objects;
-/*
-*java docs
-*
-*
+/**
+ * class "Dish" with fields: dishName, group, price, weight
+ * @author User
+ * @version 1.0
  */
-
 public class Dish {
     enum Group{soup, meat, drink, fish, garnish, snack }
 
@@ -14,14 +13,6 @@ public class Dish {
     private Group group;
     private float price;
     private float weight;
-
-    private Dish(String dishName, Group group){
-        this.dishName = dishName;
-        this.group = group;
-    }
-    public Dish(DishBuilder dishBuilder){
-        this.dishName = getDish_name();
-    }
 
     public String getDish_name() {
         return dishName;
@@ -54,7 +45,11 @@ public class Dish {
     public void setWeight(float weight) {
         this.weight = weight;
     }
-
+    /**
+     *  Overridden function of obtaining a string representation of
+     *  an instance of a class "Dish"
+     *  @return returns the string representation
+     */
     @Override
     public String toString() {
         return "Dish{" +
@@ -64,7 +59,11 @@ public class Dish {
                 ", weight=" + weight +
                 '}';
     }
-
+    /**
+     * Overridden function of comparison an instance of
+     * the class "Dish" and an instance of the class "Object"
+     * @return returns the boolean value of the comparison
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -72,40 +71,72 @@ public class Dish {
         Dish dish = (Dish) o;
         return Float.compare(dish.price, price) == 0 && Float.compare(dish.weight, weight) == 0 && dishName.equals(dish.dishName) && group == dish.group;
     }
-
+    /**
+     * Overridden function of obtaining the hash code
+     * @return returns the numeric value of the hash code
+     */
     @Override
     public int hashCode() {
         return Objects.hash(dishName, group, price, weight);
     }
 
-    //Builder Class
+    /**
+     * Class "DishBuilder" with fields: region
+     * @author User
+     * @version 1.0
+     */
     public static class DishBuilder{
-
-        // required parameters
-        private String dishName;
-        private Group group;
-        private float weight;
-
-        // optional parameters
-        private float price;
-
-        public DishBuilder(String dishName, Group group, float weight){
-            this.dishName = dishName;
-            this.group = group;
-            this.weight = weight;
+        private Dish dish;
+        public DishBuilder(){
+            dish = new Dish();
         }
 
-        public DishBuilder setPrice(float value) {
-            price = value;
+        /**
+         * Setter name designation
+         * @param dishName - name of dish
+         * @return returns current object
+         */
+        public DishBuilder setDishName(String dishName){
+            dish.dishName = dishName;
+            return this;
+        }
+        /**
+         * Setter square designation
+         * @param group - dish group
+         * @return returns current object
+         */
+        public DishBuilder setGroup(Group group){
+            dish.group = group;
+            return this;
+        }
+        /**
+         * Setter number of people designation
+         * @param price - dish price
+         * @return returns current object
+         */
+        public DishBuilder setPrice(float price){
+            dish.price = price;
+            return this;
+        }
+        /**
+         * Setter number of animal designation
+         * @param weight - dish weight
+         * @return returns current object
+         */
+        public DishBuilder setWeight(float weight){
+            dish.weight = weight;
             return this;
         }
 
-
+        /**
+         * Function of creating an object of class "Dish"
+         * @return returns new object of class "Dish"
+         */
         public Dish build(){
-            return new Dish(this);
+            return dish;
         }
-
     }
 
+    public static void main(String args[]) {
+    }
 }
-

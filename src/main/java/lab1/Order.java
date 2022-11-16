@@ -6,7 +6,11 @@ package lab1;
  */
 import java.time.LocalDateTime;
 import java.util.Objects;
-
+/**
+ * class "Order" with fields: code, createdAt, tableNumber, type, employee, dish
+ * @author User
+ * @version 1.0
+ */
 public class Order {
     enum Type{Online, Offline}
     
@@ -17,18 +21,9 @@ public class Order {
     private Employee employee;
     private Dish dish;
 
-    private Order(int code, LocalDateTime createdAt, Employee employee){
-        this.code = code;
-        this.createdAt = createdAt;
-    }
-    public Order(OrderBuilder orderBuilder){
-        this.code = 12345;
-    }
-
     public int getCode() {
         return code;
     }
-
     public void setCode(int code) {
         this.code = code;
     }
@@ -67,7 +62,11 @@ public class Order {
     public void setDish(Dish dish) {
         this.dish = dish;
     }
-
+    /**
+     *  Overridden function of obtaining a string representation of
+     *  an instance of a class "Order"
+     *  @return returns the string representation
+     */
     @Override
     public String toString() {
         return "Order{" +
@@ -79,6 +78,11 @@ public class Order {
                 ", dish=" + dish +
                 '}';
     }
+    /**
+     * Overridden function of comparison an instance of
+     * the class "Order" and an instance of the class "Object"
+     * @return returns the boolean value of the comparison
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -86,42 +90,91 @@ public class Order {
         Order order = (Order) o;
         return code == order.code && createdAt.equals(order.createdAt) && type == order.type  && dish.equals(order.dish);
     }
-
+    /**
+     * Overridden function of obtaining the hash code
+     * @return returns the numeric value of the hash code
+     */
     @Override
     public int hashCode() {
         return Objects.hash(code, createdAt, tableNumber, type, dish);
     }
 
-    //Builder Class
+    /**
+     * Class "Builder" with fields: order
+     * @author User
+     * @version 1.0
+     */
     public static class OrderBuilder{
+        private Order order;
+        public OrderBuilder(){ order = new Order(); }
+        /**
+         * Setter type designation
+         * @param code - region name
+         * @return returns current object
+         */
+        public OrderBuilder setCode(int code){
+            order.code = code;
+            return this;
+        }
 
-        // required parameters
-        private int code;
-        private LocalDateTime createdAt;
-        private int tableNumber;
-        private Type type;
-        private Employee employee;
-        private Dish dish;
+        /**
+         * Setter type designation
+         * @param createdAt - order time
+         * @return returns current object
+         */
+        public OrderBuilder setCreatedAt(LocalDateTime createdAt){
+            order.createdAt = createdAt;
+            return this;
+        }
 
-        // optional parameters
+        /**
+         * Setter type designation
+         * @param tableNumber - table number
+         * @return returns current object
+         */
+        public OrderBuilder setTableNumber(int tableNumber){
+            order.tableNumber = tableNumber;
+            return this;
+        }
+        /**
+         * Setter type designation
+         * @param type - order type
+         * @return returns current object
+         */
+        public OrderBuilder setType(Type type){
+            order.type = type;
+            return this;
+        }
 
-        public OrderBuilder(int code, LocalDateTime createdAt, int tableNumber, Type type, Employee employee, Dish dish){
-            this.code = code;
-            this.createdAt = createdAt;
-            this.tableNumber = tableNumber;
-            this.type = type;
-            this.employee = employee;
-            this.dish = dish;
+        /**
+         * Setter type designation
+         * @param employee - waiter
+         * @return returns current object
+         */
+        public OrderBuilder setEmployee(Employee employee){
+            order.employee = employee;
+            return this;
+        }
+        /**
+         * Setter type designation
+         * @param dish - ordered dish
+         * @return returns current object
+         */
+        public OrderBuilder setDish(Dish dish){
+            order.dish = dish;
+            return this;
         }
 
 
-
+        /**
+         * Function of creating an object of class "Order"
+         * @return returns new object of class "Order"
+         */
         public Order build(){
-            return new Order(this);
+            return order;
         }
-
     }
 
-
-
+    public static void main(String args[]) {
+    }
 }
