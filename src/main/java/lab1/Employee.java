@@ -1,21 +1,34 @@
 package lab1;
 
+
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Pattern;
+
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
+
 /**
  * class "Employee" with fields: fullName, birthDate, gender, position
  * @author User
  * @version 1.0
  */
 
-public class Employee {
+public class Employee implements Comparable<Employee>{
+
+    @Pattern(regexp = "[A-Z][a-z]{1,100}", message = "Full name must consists only letters and first of them must started with UpperCase and word must consist only 32 letters")
+    protected String fullName;
+    @Pattern(regexp = "[A-Z][a-z]{1,32}", message = "Position must consists only from letter and first letter must be UpperCase and word must consist only 32 letters")
+    protected String position;
+    @PastOrPresent(message = "Must be a date in the past or in the present")
+    protected  LocalDate birthDate;
     public enum Gender{male, female}
 
-    private String fullName;
-    private LocalDate birthDate;
     private Gender gender;
-    private String position;
 
 
     public String getFullName() {
@@ -48,6 +61,11 @@ public class Employee {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    @Override
+    public int compareTo(Employee t) {
+        return fullName.compareTo(t.fullName);
     }
     /**
      *  Overridden function of obtaining a string representation of
@@ -135,9 +153,38 @@ public class Employee {
          * @return returns new object of class "Employee"
          */
         public Employee build(){
+           // validate(employee);
             return employee;
         }
     }
-    public static void main(String args[]) {
+    private static void validate(Employee employee) throws IllegalArgumentException {
+
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+
+
+        Set<ConstraintViolation<Employee>> check = validator.validate(employee);
+
+        StringBuilder sb = new StringBuilder();
+
+        for(ConstraintViolation<Employee> element : check){
+            sb.append("Error value "+element.getInvalidValue() + " because " + element.getMessage());
+            sb.append("\n");
+        }
+
+        if(sb.length() > 0){
+            throw new IllegalArgumentException(sb.toString());
+        }
+    }
+
+    public static void main(String args[]){
+        try{
+            Employee e = new Employee.Builder()
+                    .setFullName("ma3riia")
+                    .setPosition("s3n4j4k")
+                    .setBirthDate(LocalDate.of(2022, 12, 29))
+                    .build();
+        } catch(IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
     }
 }

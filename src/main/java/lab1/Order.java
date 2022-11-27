@@ -5,6 +5,7 @@ package lab1;
 *
  */
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 /**
  * class "Order" with fields: code, createdAt, tableNumber, type, employee, dish
@@ -18,7 +19,10 @@ public class Order {
     private LocalDateTime createdAt;
     private int tableNumber;
     private Type type;
-    private Employee employee;
+    private List<Employee> employees;
+    public List<Employee> getEmployees() {
+        return employees;
+    }
     private Dish dish;
 
     public int getCode() {
@@ -49,12 +53,9 @@ public class Order {
         this.type = type;
     }
 
-    public Employee getEmployee() {
-        return employee;
-    }
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
+    //public void setEmployee(Employee employee) {
+     //   this.employee = employee;
+  //  }
 
     public Dish getDish() {
         return dish;
@@ -74,7 +75,7 @@ public class Order {
                 ", createdAt=" + createdAt +
                 ", tableNumber=" + tableNumber +
                 ", type=" + type +
-                ", employee=" + employee +
+                ", employee=" + employees +
                 ", dish=" + dish +
                 '}';
     }
@@ -148,11 +149,11 @@ public class Order {
 
         /**
          * Setter type designation
-         * @param employee - waiter
+         * @param employees - waiters
          * @return returns current object
          */
-        public OrderBuilder setEmployee(Employee employee){
-            order.employee = employee;
+        public OrderBuilder setEmployeesList(List<Employee> employees) {
+            order.employees = employees;
             return this;
         }
         /**
