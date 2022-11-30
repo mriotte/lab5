@@ -1,4 +1,4 @@
-package lab1;
+package lab1.classes;
 
 
 import jakarta.validation.ConstraintViolation;
@@ -8,7 +8,6 @@ import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Pattern;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
@@ -29,6 +28,17 @@ public class Employee implements Comparable<Employee>{
     public enum Gender{male, female}
 
     private Gender gender;
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    private int employeeId;
+
 
 
     public String getFullName() {
@@ -130,6 +140,10 @@ public class Employee implements Comparable<Employee>{
             employee.birthDate = birthDate;
             return this;
         }
+        public Builder setEmployeeId(int employeeId){
+            employee.employeeId = employeeId;
+            return this;
+        }
         /**
          * Setter name designation
          * @param gender - employee gender
@@ -139,6 +153,8 @@ public class Employee implements Comparable<Employee>{
             employee.gender = gender;
             return this;
         }
+
+
         /**
          * Setter name designation
          * @param position - employee position

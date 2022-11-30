@@ -1,4 +1,4 @@
-package lab1;
+package lab1.classes;
 
 import java.util.Objects;
 /**
@@ -7,12 +7,22 @@ import java.util.Objects;
  * @version 1.0
  */
 public class Dish {
-    enum Group{soup, meat, drink, fish, garnish, snack }
+    public enum Group{soup, meat, drink, fish, garnish, snack }
 
     private String dishName;
     private Group group;
-    private float price;
-    private float weight;
+    private int price;
+    private int weight;
+
+    public void setDishId(int dishId) {
+        this.dishId = dishId;
+    }
+
+    public int getDishId() {
+        return dishId;
+    }
+
+    private int dishId;
 
     public String getDish_name() {
         return dishName;
@@ -30,19 +40,19 @@ public class Dish {
         this.group = group;
     }
 
-    public float getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
-    public float getWeight() {
+    public int getWeight() {
         return weight;
     }
 
-    public void setWeight(float weight) {
+    public void setWeight(int weight) {
         this.weight = weight;
     }
     /**
@@ -109,12 +119,16 @@ public class Dish {
             dish.group = group;
             return this;
         }
+        public DishBuilder setDishId(int dishId){
+            dish.dishId = dishId;
+            return this;
+        }
         /**
          * Setter number of people designation
          * @param price - dish price
          * @return returns current object
          */
-        public DishBuilder setPrice(float price){
+        public DishBuilder setPrice(int price){
             dish.price = price;
             return this;
         }
@@ -123,7 +137,7 @@ public class Dish {
          * @param weight - dish weight
          * @return returns current object
          */
-        public DishBuilder setWeight(float weight){
+        public DishBuilder setWeight(int weight){
             dish.weight = weight;
             return this;
         }

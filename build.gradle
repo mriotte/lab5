@@ -23,6 +23,8 @@ dependencies {
     implementation group: 'org.hibernate.validator', name: 'hibernate-validator', version: '8.0.0.Final'
     // https://mvnrepository.com/artifact/org.glassfish.expressly/expressly
     implementation group: 'org.glassfish.expressly', name: 'expressly', version: '5.0.0'
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.31'
 
 
 

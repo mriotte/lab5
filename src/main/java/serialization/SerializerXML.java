@@ -3,13 +3,11 @@ package serialization;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import lab1.Employee;
+import lab1.classes.Employee;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SerializerXML implements Serializer{

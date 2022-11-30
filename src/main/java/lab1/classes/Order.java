@@ -1,9 +1,10 @@
-package lab1;
+package lab1.classes;
 /*
 * java docs
 *
 *
  */
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -13,7 +14,7 @@ import java.util.Objects;
  * @version 1.0
  */
 public class Order {
-    enum Type{Online, Offline}
+    public enum Type{Online, Offline}
     
     private int code;
     private LocalDateTime createdAt;
@@ -24,6 +25,24 @@ public class Order {
         return employees;
     }
     private Dish dish;
+    private int employeeId;
+    private int dishId;
+
+    public int getDishId() {
+        return dishId;
+    }
+
+    public void setDishId(int dishId) {
+        this.dishId = dishId;
+    }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
 
     public int getCode() {
         return code;
@@ -135,6 +154,14 @@ public class Order {
          */
         public OrderBuilder setTableNumber(int tableNumber){
             order.tableNumber = tableNumber;
+            return this;
+        }
+        public OrderBuilder setDishId(int dishId){
+            order.dishId = dishId;
+            return this;
+        }
+        public OrderBuilder setEmployeeId(int employeeId){
+            order.employeeId = employeeId;
             return this;
         }
         /**

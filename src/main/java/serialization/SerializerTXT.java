@@ -1,5 +1,5 @@
 package serialization;
-import lab1.Employee;
+import lab1.classes.Employee;
 
 import java.io.*;
 import java.time.LocalDate;

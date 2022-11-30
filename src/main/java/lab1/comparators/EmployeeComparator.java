@@ -1,4 +1,6 @@
-package lab1;
+package lab1.comparators;
+
+import lab1.classes.Employee;
 
 import java.util.Comparator;
 

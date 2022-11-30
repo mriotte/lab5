@@ -1,6 +1,10 @@
 package service;
 
-import lab1.*;
+import lab1.classes.Employee;
+import lab1.classes.Order;
+import lab1.comparators.EmployeeBirthDateComparator;
+import lab1.comparators.EmployeeComparator;
+import lab1.comparators.EmployeePositionComparator;
 
 import java.time.LocalDate;
 import java.time.Month;
