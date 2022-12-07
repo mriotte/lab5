@@ -1,15 +1,11 @@
 package database;
 
-import database.DBManager;
 import lab1.classes.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
 public class Main {
@@ -27,6 +23,9 @@ public class Main {
         Employee employee4 = new Employee.Builder().setEmployeeId(4).setFullName("Alan Deon").setBirthDate(LocalDate.of(2001, 1, 1))
                 .setGender(Employee.Gender.valueOf("male")).setPosition("Waiter")
                 .build();
+        Employee employee5 = new Employee.Builder().setEmployeeId(4).setFullName("Katherine Stone").setBirthDate(LocalDate.of(2000, 11, 1))
+                .setGender(Employee.Gender.valueOf("female")).setPosition("Waitress")
+                .build();
 
         Dish dish1 = new Dish.DishBuilder().setDishId(1).setDishName("French soup").setGroup(Dish.Group.valueOf("soup")).setPrice(120).setWeight(300)
                 .build();
@@ -41,7 +40,7 @@ public class Main {
                 .setCreatedAt(LocalDateTime.parse("November 21, 2022 12:01 AM",
                         DateTimeFormatter.ofPattern("MMMM d',' yyyy hh':'mm a", Locale.US)))
                 .setTableNumber(1).setType(Order.Type.valueOf("Offline")).setEmployeeId(2).setDishId(1).build();
-        Order order2 = new Order.OrderBuilder().setEmployeesList(Arrays.asList(employee4)).setCode(2)
+        Order order2 = new Order.OrderBuilder().setEmployeesList(Arrays.asList(employee5)).setCode(2)
                 .setCreatedAt(LocalDateTime.parse("November 21, 2022 12:12 AM",
                         DateTimeFormatter.ofPattern("MMMM d',' yyyy hh':'mm a", Locale.US)))
                 .setTableNumber(1).setType(Order.Type.valueOf("Offline")).setEmployeeId(2).setDishId(1).build();
@@ -53,62 +52,72 @@ public class Main {
 
         DBManager dbManager = new DBManager("jdbc:mysql://localhost:3306/dbrestaurant", "marie", "1410");
 
-        dbManager.setData("CREATE TABLE Dish " +
-                "(id INTEGER PRIMARY KEY, " +
-                "dishName TEXT NOT NULL, " +
-                "dishGroup TEXT NOT NULL, " +
+        dbManager.executeUpdate("CREATE TABLE Dish " +
+                "(id INTEGER AUTO_INCREMENT PRIMARY KEY, " +
+                "dishName VARCHAR(60) NOT NULL, " +
+                "dishGroup VARCHAR(50) NOT NULL, " +
                 "price INTEGER NOT NULL, " +
-                "weight INTEGER NOT NULL)");
+                "weight INTEGER NOT NULL, " +
+                "CONSTRAINT UNIQUE (dishName, dishGroup, price, weight))");
 
-        dbManager.setData("CREATE TABLE Employee " +
-                "(id INTEGER PRIMARY KEY, " +
-                "fullName TEXT NOT NULL, " +
+        dbManager.executeUpdate("CREATE TABLE Employee " +
+                "(id INTEGER AUTO_INCREMENT PRIMARY KEY, " +
+                "fullName VARCHAR(100) NOT NULL, " +
                 "birthDate DATE NOT NULL, " +
-                "gender TEXT NOT NULL, " +
-                "position TEXT NOT NULL)");
+                "gender VARCHAR(10) NOT NULL, " +
+                "position VARCHAR(50) NOT NULL," +
+                "CONSTRAINT UNIQUE (fullName, birthDate, gender, position))");
 
-        dbManager.setData("CREATE TABLE Orders " +
-                "(id INTEGER PRIMARY KEY, " +
+        dbManager.executeUpdate("CREATE TABLE Orders " +
+                "(id INTEGER AUTO_INCREMENT PRIMARY KEY, " +
                 "createdAt TIMESTAMP NOT NULL, " +
                 "tableNumber INTEGER NOT NULL, " +
-                "type TEXT NOT NULL, " +
+                "type VARCHAR(10) NOT NULL, " +
                 "employee INTEGER NOT NULL, " +
                 "dish INTEGER NOT NULL, " +
                 "FOREIGN KEY (employee) REFERENCES Employee (id), " +
-                "FOREIGN KEY (dish) REFERENCES Dish (id))");
+                "FOREIGN KEY (dish) REFERENCES Dish (id), " +
+                "CONSTRAINT UNIQUE (createdAt, tableNumber, type, employee, dish))");
 
-        dbManager.setData("INSERT INTO Orders (id, createdAt, tableNumber, type, employee, dish) " +
+        dbManager.executeUpdate("DROP TABLE Orders;");
+        dbManager.executeUpdate("DROP TABLE Employee;");
+        dbManager.executeUpdate("DROP TABLE Dish;");
+
+     /*   dbManager.executeUpdate("INSERT INTO Orders (id, createdAt, tableNumber, type, employee, dish) " +
                 "VALUES (" + getOrderInfo(order1) + ");");
-        dbManager.setData("INSERT INTO Orders (id, createdAt, tableNumber, type, employee, dish) " +
+        dbManager.executeUpdate("INSERT INTO Orders (id, createdAt, tableNumber, type, employee, dish) " +
                 "VALUES (" + getOrderInfo(order2) + ");");
-        dbManager.setData("INSERT INTO Orders (id, createdAt, tableNumber, type, employee, dish) " +
+        dbManager.executeUpdate("INSERT INTO Orders (id, createdAt, tableNumber, type, employee, dish) " +
                 "VALUES (" + getOrderInfo(order3) + ");");
 
         for (Employee employee : order1.getEmployees()) {
-            dbManager.setData("INSERT INTO Employee (id, fullName, birthDate, gender, position)" +
+            dbManager.executeUpdate("INSERT INTO Employee (id, fullName, birthDate, gender, position)" +
                     "VALUES (" + getEmployeeInfo(employee) + ");");
         }
         for (Employee employee : order2.getEmployees()) {
-            dbManager.setData("INSERT INTO Employee (id, fullName, birthDate, gender, position)" +
+            dbManager.executeUpdate("INSERT INTO Employee (id, fullName, birthDate, gender, position)" +
+                    "VALUES (" + getEmployeeInfo(employee) + ");");
+        }*/
+       // dbManager.executeUpdatePrepareStatement(order1.getEmployees().get(0));
+    //    dbManager.executeUpdatePrepareStatement(order2.getEmployees().get(0));
+      //  dbManager.executeUpdatePrepareStatement(order2.getEmployees().get(0));
+      /*  for (Employee employee : order3.getEmployees()) {
+            dbManager.executeUpdate("INSERT INTO Employee (id, fullName, birthDate, gender, position)" +
                     "VALUES (" + getEmployeeInfo(employee) + ");");
         }
-        for (Employee employee : order3.getEmployees()) {
-            dbManager.setData("INSERT INTO Employee (id, fullName, birthDate, gender, position)" +
-                    "VALUES (" + getEmployeeInfo(employee) + ");");
-        }
-        dbManager.setData("INSERT INTO Dish (id, dishName, dishGroup, price, weight) " +
+        dbManager.executeUpdate("INSERT INTO Dish (id, dishName, dishGroup, price, weight) " +
                 "VALUES (" + getDishInfo(dish1) + ");");
-        dbManager.setData("INSERT INTO Dish (id, dishName, dishGroup, price, weight) " +
+        dbManager.executeUpdate("INSERT INTO Dish (id, dishName, dishGroup, price, weight) " +
                 "VALUES (" + getDishInfo(dish2) + ");");
-        dbManager.setData("INSERT INTO Dish (id, dishName, dishGroup, price, weight) " +
+        dbManager.executeUpdate("INSERT INTO Dish (id, dishName, dishGroup, price, weight) " +
                 "VALUES (" + getDishInfo(dish3) + ");");
-        dbManager.setData("INSERT INTO Dish (id, dishName, dishGroup, price, weight) " +
+        dbManager.executeUpdate("INSERT INTO Dish (id, dishName, dishGroup, price, weight) " +
                 "VALUES (" + getDishInfo(dish4) + ");");
-
+*/
         dbManager.close();
     }
 
-    public static String getEmployeeInfo(Employee employee) {
+  /*  public static String getEmployeeInfo(Employee employee) {
         return String.format("'%d', '%s', '%d-%d-%d', '%s', '%s'",
                 employee.getEmployeeId(), employee.getFullName(), employee.getBirthDate().getYear(),
                 employee.getBirthDate().getMonthValue(), employee.getBirthDate().getDayOfMonth(), employee.getGender(), employee.getPosition());
@@ -124,5 +133,5 @@ public class Main {
                 order.getTableNumber(), order.getType(), order.getEmployeeId(),
                 order.getDishId());
     }
-
+*/
 }
