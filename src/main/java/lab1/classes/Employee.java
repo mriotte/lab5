@@ -26,25 +26,10 @@ public class Employee implements Comparable<Employee>{
     @PastOrPresent(message = "Must be a date in the past or in the present")
     protected  LocalDate birthDate;
     public enum Gender{male, female}
-
     private Gender gender;
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    private int employeeId;
-
-
-
     public String getFullName() {
         return fullName;
     }
-
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
@@ -140,10 +125,7 @@ public class Employee implements Comparable<Employee>{
             employee.birthDate = birthDate;
             return this;
         }
-        public Builder setEmployeeId(int employeeId){
-            employee.employeeId = employeeId;
-            return this;
-        }
+
         /**
          * Setter name designation
          * @param gender - employee gender

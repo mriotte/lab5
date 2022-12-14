@@ -1,9 +1,5 @@
 package lab1.classes;
-/*
-* java docs
-*
-*
- */
+
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,29 +17,10 @@ public class Order {
     private int tableNumber;
     private Type type;
     private List<Employee> employees;
+    private Dish dish;
     public List<Employee> getEmployees() {
         return employees;
     }
-    private Dish dish;
-    private int employeeId;
-    private int dishId;
-
-    public int getDishId() {
-        return dishId;
-    }
-
-    public void setDishId(int dishId) {
-        this.dishId = dishId;
-    }
-
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
-    }
-
     public int getCode() {
         return code;
     }
@@ -64,17 +41,12 @@ public class Order {
     public void setTableNumber(int tableNumber) {
         this.tableNumber = tableNumber;
     }
-
     public Type getType() {
         return type;
     }
     public void setType(Type type) {
         this.type = type;
     }
-
-    //public void setEmployee(Employee employee) {
-     //   this.employee = employee;
-  //  }
 
     public Dish getDish() {
         return dish;
@@ -154,14 +126,6 @@ public class Order {
          */
         public OrderBuilder setTableNumber(int tableNumber){
             order.tableNumber = tableNumber;
-            return this;
-        }
-        public OrderBuilder setDishId(int dishId){
-            order.dishId = dishId;
-            return this;
-        }
-        public OrderBuilder setEmployeeId(int employeeId){
-            order.employeeId = employeeId;
             return this;
         }
         /**

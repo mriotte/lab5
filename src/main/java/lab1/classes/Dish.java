@@ -8,22 +8,10 @@ import java.util.Objects;
  */
 public class Dish {
     public enum Group{soup, meat, drink, fish, garnish, snack }
-
     private String dishName;
     private Group group;
     private int price;
     private int weight;
-
-    public void setDishId(int dishId) {
-        this.dishId = dishId;
-    }
-
-    public int getDishId() {
-        return dishId;
-    }
-
-    private int dishId;
-
     public String getDish_name() {
         return dishName;
     }
@@ -117,10 +105,6 @@ public class Dish {
          */
         public DishBuilder setGroup(Group group){
             dish.group = group;
-            return this;
-        }
-        public DishBuilder setDishId(int dishId){
-            dish.dishId = dishId;
             return this;
         }
         /**
